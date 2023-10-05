@@ -6,9 +6,7 @@ def call(body) {
             // cron( env.BRANCH_NAME == 'main' && env.GIT_URL.contains('infra') == 'true' ? '0 1 * * 1' : '')
             script {
                 if (env.BRANCH_NAME == 'main' && env.GIT_URL.contains('infra')) {
-                    return cron('0 1 * * 1')
-                } else {
-                    return []
+                    cron('0 1 * * 1')
                 }
             }
         }
