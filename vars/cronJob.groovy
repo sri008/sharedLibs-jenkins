@@ -1,6 +1,8 @@
-def call(Map params = [:]) {
-    def gitURL = params.GIT_URL ?: ''
-    def branchName = params.BRANCH_NAME ?: ''
+// def call(Map params = [:]) {
+def call(body) {
+    // def gitURL = params.GIT_URL ?: ''
+    // def branchName = params.BRANCH_NAME ?: ''
+    body()
     pipeline {
         agent any
         triggers { 
