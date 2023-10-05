@@ -1,15 +1,13 @@
 def call(body) {
     body()
-    /*
-    def getCronParams() {
-        if(env.GIT_URL.contains('infra') ) {
-            return 'H */4 * * 1-5'
-        } 
-        else {
-            return ''
-        }
-    }
-    */
+    // def getCronParams() {
+    //     if(env.GIT_URL.contains('infra') ) {
+    //         return 'H */4 * * 1-5'
+    //     } 
+    //     else {
+    //         return ''
+    //     }
+    // }
     def cronValue
     if (env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure')) {
         cronValue = 'H */4 * * 1-5'
