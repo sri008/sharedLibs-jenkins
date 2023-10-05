@@ -10,7 +10,12 @@ def call(body) {
         }
     }
     */
-    def cronValue = "${(env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure')) ? 'H */4 * * 1-5' : ''}"
+    def cronValue
+    if (env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure')) {
+        cronValue = 'H */4 * * 1-5'
+    } else {
+        cronValue = ''
+    }
     pipeline {
         agent any
         triggers { 
