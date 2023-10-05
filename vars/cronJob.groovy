@@ -1,4 +1,4 @@
-def call(body) {
+hndef call(body) {
     body()
     // cant use thi below method as it should be declare in another file as body() method is used
     // def getCronParams() {
