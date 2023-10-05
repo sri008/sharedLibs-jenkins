@@ -1,5 +1,6 @@
 def call(body) {
     body()
+    /*
     def getCronParams() {
         if(env.GIT_URL.contains('infra') ) {
             return 'H */4 * * 1-5'
@@ -8,11 +9,13 @@ def call(body) {
             return ''
         }
     }
+    */
+    def cronValue = "${(env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure')) ? 'H */4 * * 1-5' : ''}"
     pipeline {
         agent any
         triggers { 
             // cron( env.BRANCH_NAME == 'main' && env.GIT_URL.contains('infra') == 'true' ? '0 1 * * 1' : '')
-            cron( getCronParams())
+            cron( cronValue)
         }
         stages {
             stage('github url') {
