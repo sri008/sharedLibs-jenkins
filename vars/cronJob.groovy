@@ -1,5 +1,5 @@
-def call() {
-    // body()
+def call(body) {
+    body()
     pipeline {
         agent any
         triggers { 
