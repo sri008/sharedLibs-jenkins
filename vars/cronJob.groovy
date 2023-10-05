@@ -8,14 +8,15 @@ def call(body) {
     //         return ''
     //     }
     // }
-    def cronValue
-    if (env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure')) {
-        cronValue = 'H */4 * * 1-5'
-    } else {
-        cronValue = ''
-    }
+    
     pipeline {
         agent any
+        def cronValue
+        if (env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure')) {
+            cronValue = 'H */4 * * 1-5'
+        } else {
+            cronValue = ''
+        }
         triggers { 
             // cron( env.BRANCH_NAME == 'main' && env.GIT_URL.contains('infra') == 'true' ? '0 1 * * 1' : '')
             cron( cronValue)
