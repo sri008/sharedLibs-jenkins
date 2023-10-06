@@ -1,8 +1,10 @@
 // def call(Map params = [:]) {
 def call(body) {
-    // def gitURL = params.GIT_URL ?: ''
-    // def branchName = params.BRANCH_NAME ?: ''
+    def config = [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = config
     body()
+    config.each { print(it) }
     pipeline {
         agent any
         triggers { 
