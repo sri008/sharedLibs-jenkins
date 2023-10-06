@@ -14,6 +14,7 @@ def call(body) {
             stage('github url') {
                 steps {
                     echo "${env.GIT_URL}"
+                    echo "${env.BRANCH_NAME}"
                     // echo "THE Branch is use ==> ${branchName}"
                     // echo "the gitlhub repo url use ==> ${gitURL}"
                 }
