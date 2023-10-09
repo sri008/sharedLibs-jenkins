@@ -1,5 +1,6 @@
 // def call(Map params = [:]) {
 def call(body) {
+    body()
     pipeline {
         agent any
         // environment{
