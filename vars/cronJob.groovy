@@ -8,7 +8,7 @@ def call(body) {
         triggers { 
             // cron( (env.BRANCH_NAME == 'main' && (env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure'))) ? 'H 1 * * 1' : '')
             // cron( (gitURL.contains('infra') || gitURL.contains('infrastructure')) ? 'H 1 * * 1' : '')
-            cron((env.BRANCH_NAME == 'main' && config.infra == 'true' ) ? 'H 1 * * 1': '')
+            cron((env.BRANCH_NAME == 'main' && !config.infra ) ? 'H 1 * * 1': '')
         }
         stages {
             stage('github url') {
