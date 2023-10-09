@@ -7,7 +7,7 @@ def call(body) {
             BRANCH_NAME = 'main'
         }
         triggers { 
-            cron( env.BRANCH_NAME == 'main' && (env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure')) ? '0 1 * * 1' : '')
+            cron( (env.BRANCH_NAME == 'main' && (env.GIT_URL.contains('infra') || env.GIT_URL.contains('infrastructure'))) ? '0 1 * * 1' : '')
             // cron( (gitURL.contains('infra') || gitURL.contains('infrastructure')) ? 'H 1 * * 1' : '')
             // cron('H 1 * * 1')
         }
