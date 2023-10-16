@@ -11,9 +11,6 @@ def call(body) {
         }
         stages {
             stage('set parameter') {
-                // environment {
-                //     INFRA_VALUE= config.infra
-                // }
                 steps{
                     script{
                         if (config.infra) {
@@ -46,8 +43,7 @@ def call(body) {
                             script: [
                                 classpath: [],
                                 script:
-                                    //'return[\'Auto\',\'Manual\']'
-                                    '''if(env.INFRA_VALUE == 'false') {
+                                    '''if(env.INFRA_ENV == 'false') {
                                         return[\'Auto\',\'Manual\']   
                                     } '''.stripIndent()
                                 ]
@@ -82,7 +78,7 @@ def call(body) {
                 steps {
                     echo "Git url --> ${env.GIT_URL}"
                     echo "Branch is used --> ${env.BRANCH_NAME}"
-                    echo "is it infra or not --> ${env.INFRA_VALUE }"
+                    echo "is it infra or not --> ${env.INFRA_ENV }"
                 }
             }
         }
