@@ -3,6 +3,10 @@ def call(body) {
 	body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
+    def scanTypeChoices = []
+    if (!config.infra) {
+        scanTypeChoices = ['Auto', 'Manual']
+    }
     pipeline {
         agent any
         
@@ -38,17 +42,18 @@ def call(body) {
                           $class: 'ChoiceParameter',
                           choiceType: 'PT_SINGLE_SELECT',
                           name: 'ScanType',
-                          referencedParameters: 'env.INFRA_ENV',
-                          script: [
-                            $class: 'GroovyScript',
-                            script: [
-                                classpath: [],
-                                script:
-                                    '''if(!env.INFRA_ENV) {
-                                        return[\'Auto\',\'Manual\']   
-                                    } '''.stripIndent()
-                                ]
-                          ]
+                          choices: scanTypeChoices
+                        //   referencedParameters: 'env.INFRA_ENV',
+                        //   script: [
+                        //     $class: 'GroovyScript',
+                        //     script: [
+                        //         classpath: [],
+                        //         script:
+                        //             '''if(!env.INFRA_ENV) {
+                        //                 return[\'Auto\',\'Manual\']   
+                        //             } '''.stripIndent()
+                        //         ]
+                        //   ]
                         ],
                         [
                             $class: 'CascadeChoiceParameter',
