@@ -38,6 +38,7 @@ def call(body) {
                           $class: 'ChoiceParameter',
                           choiceType: 'PT_SINGLE_SELECT',
                           name: 'ScanType',
+                          referencedParameters: 'env.INFRA_ENV',
                           script: [
                             $class: 'GroovyScript',
                             script: [
