@@ -5,14 +5,15 @@ def call(body) {
     body()
     pipeline {
         agent any
-        environment {
-            INFRA_VALUE = config.infra ? 'true' : 'false'
-        }
+        
         triggers { 
             cron((env.BRANCH_NAME == 'main' && !config.infra ) ? 'H 1 * * 1': '')
         }
         stages {
             stage('set parameter') {
+                environment {
+                    INFRA_VALUE = config.infra ? 'true' : 'false'
+                }
                 steps{
                     script{
                         def inputParams=[
@@ -41,7 +42,7 @@ def call(body) {
                                 classpath: [],
                                 script:
                                     //'return[\'Auto\',\'Manual\']'
-                                    '''if(env.INFRA_VALUE) {
+                                    '''if(env.INFRA_VALUE == 'false') {
                                         return[\'Auto\',\'Manual\']   
                                     } '''.stripIndent()
                                 ]
