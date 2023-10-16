@@ -43,7 +43,7 @@ def call(body) {
                             script: [
                                 classpath: [],
                                 script:
-                                    '''if(env.INFRA_ENV == 'false') {
+                                    '''if(env.INFRA_ENV.equals("false")) {
                                         return[\'Auto\',\'Manual\']   
                                     } '''.stripIndent()
                                 ]
