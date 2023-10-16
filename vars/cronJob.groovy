@@ -11,11 +11,16 @@ def call(body) {
         }
         stages {
             stage('set parameter') {
-                environment {
-                    INFRA_VALUE= config.infra
-                }
+                // environment {
+                //     INFRA_VALUE= config.infra
+                // }
                 steps{
                     script{
+                        if (config.infra) {
+                            env.INFRA_ENV = 'true'
+                        } else {
+                            env.INFRA_ENV = 'false'
+                        }
                         def inputParams=[
                         [
                             $class: 'ChoiceParameter',
@@ -77,7 +82,7 @@ def call(body) {
                 steps {
                     echo "Git url --> ${env.GIT_URL}"
                     echo "Branch is used --> ${env.BRANCH_NAME}"
-                    echo "is it infra or not --> ${config.infra}"
+                    echo "is it infra or not --> ${env.INFRA_VALUE }"
                 }
             }
         }
