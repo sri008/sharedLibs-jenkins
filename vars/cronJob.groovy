@@ -5,6 +5,9 @@ def call(body) {
     body()
     pipeline {
         agent any
+        environment {
+            INFRA_VALUE = config.infra ? 'true' : 'false'
+        }
         triggers { 
             cron((env.BRANCH_NAME == 'main' && !config.infra ) ? 'H 1 * * 1': '')
         }
@@ -38,7 +41,7 @@ def call(body) {
                                 classpath: [],
                                 script:
                                     //'return[\'Auto\',\'Manual\']'
-                                    '''if(!config.infra) {
+                                    '''if(env.INFRA_VALUE) {
                                         return[\'Auto\',\'Manual\']   
                                     } '''.stripIndent()
                                 ]
