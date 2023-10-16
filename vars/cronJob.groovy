@@ -29,7 +29,7 @@ def call(body) {
                 script: [
                     classpath: [],
                     script:
-                        '''if(config.buildDocker = 'true') {
+                        '''if(!config.infra ) {
                             return[\'Auto\',\'Manual\']   
                         } else {
                             return["Infra repo"]
