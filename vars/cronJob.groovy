@@ -37,10 +37,10 @@ def call(body) {
                             script: [
                                 classpath: [],
                                 script:
-                                    'return[\'Auto\',\'Manual\']'
-                                    // '''if(!config.infra) {
-                                    //     return[\'Auto\',\'Manual\']   
-                                    // } '''.stripIndent()
+                                    //'return[\'Auto\',\'Manual\']'
+                                    '''if(!config.infra) {
+                                        return[\'Auto\',\'Manual\']   
+                                    } '''.stripIndent()
                                 ]
                           ]
                         ],
