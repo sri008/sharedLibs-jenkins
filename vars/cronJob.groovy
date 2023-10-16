@@ -12,7 +12,7 @@ def call(body) {
         stages {
             stage('set parameter') {
                 environment {
-                    INFRA_VALUE= ${config.infra}
+                    INFRA_VALUE= config.infra
                 }
                 steps{
                     script{
