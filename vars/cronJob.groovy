@@ -14,9 +14,9 @@ def call(body) {
                 steps{
                     script{
                         if (config.infra) {
-                            env.INFRA_ENV = 'true'
+                            env.INFRA_ENV = "true"
                         } else {
-                            env.INFRA_ENV = 'false'
+                            env.INFRA_ENV = "false"
                         }
                         def inputParams=[
                         [
