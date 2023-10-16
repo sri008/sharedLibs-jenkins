@@ -29,10 +29,8 @@ def call(body) {
                 script: [
                     classpath: [],
                     script:
-                        '''if(!config.infra ) {
+                        '''if(config.infra == null ) {
                             return[\'Auto\',\'Manual\']   
-                        } else {
-                            return["Infra repo"]
                         }'''
                     ]
               ]
@@ -64,9 +62,9 @@ def call(body) {
         stages {
             stage('github url') {
                 steps {
-                    echo "${env.GIT_URL}"
-                    echo "${env.BRANCH_NAME}"
-                    echo "${config.infra}"
+                    echo "Git url --> ${env.GIT_URL}"
+                    echo "Branch is used --> ${env.BRANCH_NAME}"
+                    echo "is it infra or not --> ${config.infra}"
             }
         }
     }
