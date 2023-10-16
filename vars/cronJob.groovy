@@ -3,57 +3,6 @@ def call(body) {
 	body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
-    // properties([
-    //     parameters([
-    //         [
-    //             $class: 'ChoiceParameter',
-    //             choiceType: 'PT_SINGLE_SELECT',
-    //             filterLength: 0, filterable: false,
-    //             name: 'ProjectName',
-    //             script: [
-    //                 $class: 'GroovyScript',
-    //                 script: 
-    //                     [
-    //                         classpath: [],  
-    //                         script:
-    //                             'return[\'SM\']'
-    //                     ]
-    //             ]
-    //         ],
-    //         [
-    //           $class: 'ChoiceParameter',
-    //           choiceType: 'PT_SINGLE_SELECT',
-    //           name: 'ScanType',
-    //           script: [
-    //             $class: 'GroovyScript',
-    //             script: [
-    //                 classpath: [],
-    //                 script:
-    //                     '''if(config.infra == null ) {
-    //                         return[\'Auto\',\'Manual\']   
-    //                     }'''
-    //                 ]
-    //           ]
-    //         ],
-    //         [
-    //             $class: 'CascadeChoiceParameter',
-    //              choiceType: 'PT_SINGLE_SELECT',
-    //             name: 'Region',
-    //             referencedParameters: 'ScanType',
-    //             script: [
-    //                 $class: 'GroovyScript',
-    //                 script: 
-    //                     [classpath: [], 
-    //                     script:
-    //                         '''if (ScanType.equals("Auto")) {
-    //                           return ["ap-south-1"]
-    //                         }'''
-    //                     ]
-    //             ]
-    //         ]
-    //     ])
-    // ])
-
     pipeline {
         agent any
         triggers { 
@@ -88,11 +37,9 @@ def call(body) {
                             script: [
                                 classpath: [],
                                 script:
-                                    '''if(config.buildDocker = 'true') {
+                                    '''if(!config.infra) {
                                         return[\'Auto\',\'Manual\']   
-                                    } else {
-                                        return["Infra repo"]
-                                    }'''
+                                    } '''
                                 ]
                           ]
                         ],
