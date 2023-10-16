@@ -14,9 +14,9 @@ def call(body) {
                 steps{
                     script{
                         if (config.infra) {
-                            env.INFRA_ENV = "true"
+                            env.INFRA_ENV = 'true'
                         } else {
-                            env.INFRA_ENV = "false"
+                            env.INFRA_ENV = 'false'
                         }
                         def inputParams=[
                         [
@@ -43,7 +43,7 @@ def call(body) {
                             script: [
                                 classpath: [],
                                 script:
-                                    '''if(env.INFRA_ENV.equals("false")) {
+                                    '''if(!env.INFRA_ENV) {
                                         return[\'Auto\',\'Manual\']   
                                     } '''.stripIndent()
                                 ]
