@@ -84,9 +84,13 @@ def call(body) {
                 steps {
 		    script {
 			    config.repoName = env.GIT_URL.replaceAll("https://github.com","")
+			    if (config.repoName.contains(cron-jobs)) {
+				    config.lastword = 'crons'
+			    }
 		    }
                     echo "Git url --> ${env.GIT_URL}"
 		    echo "repo Name --> ${config.repoName}"
+		    echo "last word --> ${config.lastword}"
                     echo "Branch is used --> ${env.BRANCH_NAME}"
                     echo "is it infra or not --> ${env.INFRA_ENV }"
                 }
