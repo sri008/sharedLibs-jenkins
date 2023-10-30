@@ -84,7 +84,7 @@ def call(body) {
                 steps {
 		    script {
 			    config.repoName = env.GIT_URL.replaceAll("https://github.com","")
-			    if (config.repoName.contains(cron-jobs)) {
+			    if (config.repoName.contains("cron-jobs")) {
 				    config.lastword = 'crons'
 			    }
 		    }
