@@ -3,6 +3,7 @@ def call(body) {
 	body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
+    config.repoName = env.GIT_URL.replaceAll("https://github.com")
     def scanTypeChoices = []
     if (!config.infra) {
         scanTypeChoices = ['Auto', 'Manual']
@@ -83,6 +84,7 @@ def call(body) {
             stage('github url') {
                 steps {
                     echo "Git url --> ${env.GIT_URL}"
+		    echo "repo Name --> ${config.repoName}"
                     echo "Branch is used --> ${env.BRANCH_NAME}"
                     echo "is it infra or not --> ${env.INFRA_ENV }"
                 }
