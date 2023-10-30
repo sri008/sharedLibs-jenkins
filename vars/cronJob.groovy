@@ -83,7 +83,7 @@ def call(body) {
             stage('github url') {
                 steps {
 		    script {
-			    config.repoName = env.GIT_URL.replaceAll("https://github.com")
+			    config.repoName = env.GIT_URL.replaceAll("https://github.com","")
 		    }
                     echo "Git url --> ${env.GIT_URL}"
 		    echo "repo Name --> ${config.repoName}"
