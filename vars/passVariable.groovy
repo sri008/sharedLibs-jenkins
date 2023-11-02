@@ -7,10 +7,10 @@ def call(body) {
     if (!config.infra) {
         scanTypeChoices = ['Auto', 'Manual']
     }
-    config.repoName = env.GIT_URL.replaceAll("https://github.com","").replaceAll(".git", "")
+    // config.repoName = env.GIT_URL.replaceAll("https://github.com","").replaceAll(".git", "")
     pipeline {
         agent any
-        
+        config.repoName = env.GIT_URL.replaceAll("https://github.com","").replaceAll(".git", "")
         triggers { 
             cron((env.BRANCH_NAME == 'main' && !config.infra ) ? 'H 1 * * 1': '')
         }
