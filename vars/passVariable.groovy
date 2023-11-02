@@ -10,6 +10,10 @@ def call(body) {
     // config.repoName = env.GIT_URL.replaceAll("https://github.com","").replaceAll(".git", "")
     pipeline {
         agent any
+	options {
+            // Define the Discard Old Builds property
+            buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '2', daysToKeepStr: '', numToKeepStr: '2'))
+        }
         triggers { 
             cron((env.BRANCH_NAME == 'main' && !config.infra ) ? 'H 1 * * 1': '')
         }
