@@ -36,6 +36,16 @@ def call(body) {
 		    // echo "last word --> ${config.lastWord}"
                 }
             }
+            stage('Set when condition') {
+                when{
+                    allOf{
+                        expression { env.GIT_BRANCH in ['main', 'origin/main']}
+                    }
+                }
+                steps{
+                    echo "this is from MAIN"
+                }
+            }
         }
     }
 }
