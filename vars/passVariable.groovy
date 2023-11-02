@@ -16,18 +16,18 @@ def call(body) {
         stages {
             stage('github url') {
                 steps { 
-		    // script {
-			   //  config.gitRepo = env.GIT_URL.replaceAll(/(https:\/\/github.com\/|\.git)/, "")
-			   //  config.lastWord = config.gitRepo.contains("-cron-jobs")? "crons": config.gitRepo.endsWith("-new-notification") ? "wow" : config.gitRepo.split("[^\\w]+").last()
-			   //  // if (config.repoName.contains("cron-jobs")) {
-				  //  //  config.lastword = 'crons'
-			   //  // } else {
-				  //  //  config.lastword = config.repoName.split("[^\\w]+").last()
-			   //  // }
-		    // }
+		    script {
+			     childVar.childOne(config)
+			    // config.gitRepo = env.GIT_URL.replaceAll(/(https:\/\/github.com\/|\.git)/, "")
+			    // config.lastWord = config.gitRepo.contains("-cron-jobs")? "crons": config.gitRepo.endsWith("-new-notification") ? "wow" : config.gitRepo.split("[^\\w]+").last()
+			    // if (config.repoName.contains("cron-jobs")) {
+				   //  config.lastword = 'crons'
+			    // } else {
+				   //  config.lastword = config.repoName.split("[^\\w]+").last()
+			    // }
+		    }
                     echo "Git url --> ${env.GIT_URL}"
-		    echo "repo Name --> ${config.repoName}"
-		    childVar.childOne(config)
+		    // echo "repo Name --> ${config.repoName}"
 		    // echo "last word --> ${config.lastWord}"
                 }
             }
