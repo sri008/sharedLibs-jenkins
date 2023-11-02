@@ -31,7 +31,7 @@ def call(body) {
 				   //  config.lastword = config.repoName.split("[^\\w]+").last()
 			    // }
 		    }
-                    echo "Git url --> ${env.GIT_URL}"
+                    echo "Git url from main shared file--> ${env.GIT_URL}"
 		    // echo "repo Name --> ${config.repoName}"
 		    // echo "last word --> ${config.lastWord}"
                 }
