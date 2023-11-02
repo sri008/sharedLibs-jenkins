@@ -4,5 +4,5 @@ def childOne(config) {
 	// withEnv(["lastword"]){
 	// 	sh """echo last word --> $lastWord"""
 	// }
-	sh """echo last word --> $lastWord"""
+	sh """echo last word --> ${lastWord}"""
 }
