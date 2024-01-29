@@ -2,15 +2,10 @@ def call(body) {
     pipeline {
         agent any
         stages {
-            stage('clear workspace') {
-                steps {
-                    cleanWs()
-                }
-            }
             stage('parent') {
                 steps {
                     sh 'echo Heloo from child'
-                    sh 'ls -l'
+                    sh 'ls -la'
                 }
             }
             stage('initialize sub module'){
@@ -20,18 +15,20 @@ def call(body) {
                     // sh 'git submodule update'
                     // sh 'ls -l'
                     script {
-                        // Read the .gitmodules file and extract submodule paths
+                         // Read the .gitmodules file and extract submodule paths
                         def gitmodulesContent = readFile('.gitmodules')
                         def submodulePaths = gitmodulesContent.readLines().findAll { it =~ /^\s*path\s*=/ }.collect { it.replaceFirst(/^\s*path\s*=\s*/, '') }
 
-                        // Initialize and update each submodule
+                        // Iterate through each submodule path
                         submodulePaths.each { submodulePath ->
-                            dir(submodulePath.trim()) {
-                                sh 'git submodule init'
-                                sh 'git submodule update'
-                            }
-                        }
+                            // Clone the submodule repository
+                            sh "git submodule update --init --recursive ${submodulePath.trim()}"
                     }
+                }
+            }
+            stage('clear workspace') {
+                steps {
+                    cleanWs()
                 }
             }
         }
