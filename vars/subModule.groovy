@@ -7,6 +7,7 @@ def call(body) {
                     sh 'echo Heloo from child'
                     sh 'ls -la'
                     sh 'cat .git/config'
+                    sh 'cat .gitmodules'
                 }
             }
             stage('initialize sub module'){
@@ -23,7 +24,7 @@ def call(body) {
                         // Iterate through each submodule path
                         submodulePaths.each { submodulePath ->
                             // Create the submodule folder if it doesn't exist
-                            // sh "mkdir -p ${submodulePath.trim()}; ls -l"
+                            sh "mkdir -p ${submodulePath.trim()}; ls -l"
                             // Clone the submodule repository
                             sh "git submodule init ${submodulePath.trim()}"
                         }
