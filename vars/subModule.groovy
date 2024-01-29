@@ -29,10 +29,15 @@ def call(body) {
                     }
                 }
             }
-            stage('clear workspace') {
-                steps {
-                    cleanWs()
-                }
+            // stage('clear workspace') {
+            //     steps {
+            //         cleanWs()
+            //     }
+            // }
+        }
+        post {
+            always {
+                cleanWs()
             }
         }
     }
