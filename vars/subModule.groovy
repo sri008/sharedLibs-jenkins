@@ -2,6 +2,11 @@ def call(body) {
     pipeline {
         agent any
         stages {
+            stage('clear workspace') {
+                steps {
+                    cleanWs()
+                }
+            }
             stage('parent') {
                 steps {
                     sh 'echo Heloo from child'
