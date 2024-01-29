@@ -26,7 +26,7 @@ def call(body) {
                             // Create the submodule folder if it doesn't exist
                             sh "mkdir -p ${submodulePath.trim()}; ls -l"
                             // Clone the submodule repository
-                            sh "git submodule init ${submodulePath.trim()}"
+                            sh "git submodule update --init ${submodulePath.trim()}"
                             sh 'ls -l ${submodulePath.trim()}'
                         }
                     }
