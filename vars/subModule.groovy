@@ -23,6 +23,7 @@ def call(body) {
                         submodulePaths.each { submodulePath ->
                             // Clone the submodule repository
                             sh "git submodule update --init --recursive ${submodulePath.trim()}"
+                        }
                     }
                 }
             }
