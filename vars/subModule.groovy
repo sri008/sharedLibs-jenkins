@@ -21,6 +21,8 @@ def call(body) {
 
                         // Iterate through each submodule path
                         submodulePaths.each { submodulePath ->
+                            // Create the submodule folder if it doesn't exist
+                            sh "mkdir -p ${submodulePath.trim()}"
                             // Clone the submodule repository
                             sh "git submodule update --init --recursive ${submodulePath.trim()}"
                         }
