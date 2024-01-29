@@ -13,6 +13,7 @@ def call(body) {
                     sh 'ls -l'
                     sh 'git submodule init'
                     sh 'git submodule update'
+                    sh 'ls -l'
                 }
             }
         }
