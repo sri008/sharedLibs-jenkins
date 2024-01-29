@@ -27,7 +27,7 @@ def call(body) {
                             // sh "mkdir -p ${submodulePath.trim()}; ls -l"
                             // Clone the submodule repository
                             // sh "git submodule update ${submodulePath.trim()}"
-                            sh 'ls -l ${submodulePath.trim()}'
+                            sh "ls -l ${submodulePath.trim()}"
                         }
                     }
                 }
