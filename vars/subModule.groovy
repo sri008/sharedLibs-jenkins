@@ -28,7 +28,7 @@ def call(body) {
                                 sh """
                                 git config --list
                                 echo ##########
-                                git submodule init
+                                git submodule sync
                                 git submodule update --init --recursive --remote
                                 cat .git/config
                                 cd ${submodulePath.trim()}
