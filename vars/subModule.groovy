@@ -1,4 +1,4 @@
-def parentPipeline(body) {
+def call(body) {
     pipeline {
         agent any
         stages {
