@@ -29,7 +29,7 @@ def call(body) {
                                 git config --list
                                 echo ##########
                                 git submodule init
-                                git submodule update --init --recursive
+                                git submodule update --init --recursive --remote
                                 cat .git/config
                                 cd ${submodulePath.trim()}
                                 git branch
