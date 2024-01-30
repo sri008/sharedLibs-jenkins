@@ -24,7 +24,7 @@ def call(body) {
                         // Iterate through each submodule path
                         submodulePaths.each { submodulePath ->
                             sh "ls -l ${submodulePath.trim()}"
-                            withCredentials([sshUserPrivateKey(credentialsId: 'github01', keyFileVariable: 'SSH_KEY')]) {
+                            withCredentials([sshUserPrivateKey(credentialsId: 'github01')]) {
                                 sh """
                                 cd ${submodulePath.trim()}
                                 git submodule init
