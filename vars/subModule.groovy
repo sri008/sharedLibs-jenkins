@@ -24,13 +24,14 @@ def call(body) {
                         // Iterate through each submodule path
                         submodulePaths.each { submodulePath ->
                             sh "ls -l ${submodulePath.trim()}"
-                            withCredentials([sshUserPrivateKey(credentialsId: 'github01')]) {
+                            // withCredentials([sshUserPrivateKey(credentialsId: 'github01')]) {
                                 sh """
                                 cd ${submodulePath.trim()}
+                                git config --list
                                 git submodule init
                                 git submodule update --init --recursive
                                 """
-                            }   
+                            // }   
                         }
                     }
                 }
