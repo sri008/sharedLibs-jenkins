@@ -26,10 +26,14 @@ def call(body) {
                             sh "ls -l ${submodulePath.trim()}"
                             // withCredentials([sshUserPrivateKey(credentialsId: 'github01')]) {
                                 sh """
-                                cd ${submodulePath.trim()}
                                 git config --list
+                                echo ##########
                                 git submodule init
                                 git submodule update --init --recursive
+                                cat .git/config
+                                cd ${submodulePath.trim()}
+                                git branch
+                                ls -la
                                 """
                             // }   
                         }
