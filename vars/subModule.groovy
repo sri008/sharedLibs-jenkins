@@ -28,6 +28,7 @@ def call(body) {
                             // Clone the submodule repository
                             // sh "git submodule update ${submodulePath.trim()}"
                             sh "ls -l ${submodulePath.trim()}"
+                            sh "cd ${submodulePath.trim()} ; git branch"
                         }
                     }
                 }
