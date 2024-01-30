@@ -1,22 +1,22 @@
 def call(body) {
-    pipeline {
-        agent any
-        stages {
-            stage('parent') {
-                steps {
-                    sh 'echo Heloo from child'
-                    sh 'ls -la'
-                    sh 'cat .git/config'
-                    sh 'cat .gitmodules'
-                }
-            }
-            stage('initialize sub module'){
-                steps{
-                    // sh 'ls -l'
-                    // sh 'git submodule init'
-                    // sh 'git submodule update'
-                    // sh 'ls -l'
-                    script {
+    // pipeline {
+    //     agent any
+    //     stages {
+    //         stage('parent') {
+    //             steps {
+    //                 sh 'echo Heloo from child'
+    //                 sh 'ls -la'
+    //                 sh 'cat .git/config'
+    //                 sh 'cat .gitmodules'
+    //             }
+    //         }
+    //         stage('initialize sub module'){
+    //             steps{
+    //                 // sh 'ls -l'
+    //                 // sh 'git submodule init'
+    //                 // sh 'git submodule update'
+    //                 // sh 'ls -l'
+    //                 script {
                          // Read the .gitmodules file and extract submodule paths
                         def gitmodulesContent = readFile('.gitmodules')
                         def submodulePaths = gitmodulesContent.readLines().findAll { it =~ /^\s*path\s*=/ }.collect { it.replaceFirst(/^\s*path\s*=\s*/, '') }
@@ -35,14 +35,14 @@ def call(body) {
                             ls -la
                             """
                         }
-                    }
-                }
-            }
-        }
-        post {
-            always {
-                cleanWs()
-            }
-        }
-    }
+//                     }
+//                 }
+//             }
+//         }
+//         post {
+//             always {
+//                 cleanWs()
+//             }
+//         }
+//     }
 }
