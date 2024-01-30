@@ -23,13 +23,14 @@ def call(body) {
 
                         // Iterate through each submodule path
                         submodulePaths.each { submodulePath ->
-                            // Create the submodule folder if it doesn't exist
-                            // sh "mkdir -p ${submodulePath.trim()}; ls -l"
-                            // Clone the submodule repository
                             sh "ls -l ${submodulePath.trim()}"
-                            sh "git submodule update --init --recursive ${submodulePath.trim()}"
-                            sh "cd ${submodulePath.trim()}"
-                            sh "git config --list"
+                            withCredentials([sshUserPrivateKey(credentialsId: 'github01', keyFileVariable: 'SSH_KEY')]) {
+                                sh """
+                                cd ${submodulePath.trim()}
+                                git submodule init
+                                git submodule update --init --recursive
+                                """
+                            }   
                         }
                     }
                 }
