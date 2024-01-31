@@ -20,6 +20,9 @@ def call(body) {
             else
                 git checkout -b "$gitB_name"
             fi
+            cp ../*.tgz .
+			git status
+			git add . ; git commit -m "fix patch" ; git push
         """
     }
 }
