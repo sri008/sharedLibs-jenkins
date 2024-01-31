@@ -14,6 +14,7 @@ def call(body) {
             git submodule sync
             git submodule update --init --recursive --remote
             cat .git/config
+            cd ${submodulePath.trim()}
         """
     }
 }
