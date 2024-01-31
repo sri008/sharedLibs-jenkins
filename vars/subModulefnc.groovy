@@ -17,7 +17,7 @@ def call(body) {
             cd ${submodulePath.trim()}
             pwd
             ls -l 
-            git branch | grep -q ${gitB_name}
+            git branch | grep -q  ${env.GIT_BRANCH}
             if [ $? -eq 0 ]; then
                 git checkout ${gitB_name}
             else
