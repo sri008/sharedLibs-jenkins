@@ -8,21 +8,19 @@ def call(body) {
     // Iterate through each submodule path
     submodulePaths.each { submodulePath ->
         sh "ls -l ${submodulePath.trim()}"
-        sh """
+        sh '''
             git config --list
             echo ##########
-            git submodule sync
-            git submodule update --init --recursive --remote
+            git submodule sync ; git submodule update --init --recursive --remote
             cat .git/config
             cd ${submodulePath.trim()}
-            pwd
             ls -l 
-            git branch | grep -q  env.GIT_BRANCH
+            git branch | grep -q  ${gitB_name}
             if [ $? -eq 0 ]; then
                 git checkout ${gitB_name}
             else
                 git checkout -b ${gitB_name}
             fi
-        """
+        '''
     }
 }
