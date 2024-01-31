@@ -16,7 +16,7 @@ def call(body) {
             cat .git/config
             cd "${submodulePath.trim()}"
             git branch
-            git checkout -b "${gitB_name}-01"
+            git checkout -b "${gitB_name}"
             cp ../*.tgz .
             git status
             git add . ; git commit -m "fix patch" ; git push 
