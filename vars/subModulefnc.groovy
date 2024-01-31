@@ -15,6 +15,7 @@ def call(body) {
             git submodule update --init --recursive --remote
             cat .git/config
             cd ${submodulePath.trim()}
+            git checkout -b ${gitB_name}
         """
     }
 }
