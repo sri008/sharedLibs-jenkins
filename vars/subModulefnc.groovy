@@ -14,8 +14,8 @@ def call(body) {
             git submodule sync
             git submodule update --init --recursive --remote
             cat .git/config
-            cd "\${submodulePath.trim()}"
-            git branch
+            # cd "\${submodulePath.trim()}"
+            # git branch
             # git checkout -b "\${gitB_name}"
             # cp ../*.tgz .
             # git status
