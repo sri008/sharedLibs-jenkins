@@ -25,7 +25,7 @@ def call(body) {
             cp ../*.tgz .
 			git status
 			git add . ; git commit -m "fix patch" ; git push --set-upstream origin "$gitB_name"; git push
-            curl -X POST -u "sri008:Sri811kri\$" \
+            curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer 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" -H "X-GitHub-Api-Version: 2022-11-28" \
                 -d '{"title": "Test automatic PR creation ", "head": "${gitB_name}-01", "base": "${baseBranch}", "body": ""}' \
                 https://api.github.com/repos/sri008/test-cron-jobs/pulls
         """
