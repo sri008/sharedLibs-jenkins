@@ -17,9 +17,9 @@ def call(body) {
             ls -l 
             git branch | grep -q  "${gitB_name}"
             if [ $? -eq 0 ]; then
-                git checkout  $gitB_name
+                git checkout  "$gitB_name"
             else
-                git checkout -b  $gitB_name
+                git checkout -b  "$gitB_name"
             fi
         """
     }
