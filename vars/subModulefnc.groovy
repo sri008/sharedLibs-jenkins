@@ -1,6 +1,6 @@
 def call(body) {
     // Read the .gitmodules file and extract submodule paths
-    def github_token = credentials('testAPi')
+    // def github_token = credentials('testAPi')
     def gitB_name = env.GIT_BRANCH
     def gitmodulesContent = readFile('.gitmodules')
     def submodulePaths = gitmodulesContent.readLines().findAll { it =~ /^\s*path\s*=/ }.collect { it.replaceFirst(/^\s*path\s*=\s*/, '') }
@@ -9,7 +9,8 @@ def call(body) {
     // Iterate through each submodule path
     submodulePaths.each { submodulePath ->
         sh "ls -l ${submodulePath.trim()}"
-        sh """
+        withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
+            sh """
             git config --list
             echo ##########
             git submodule sync ; git submodule update --init --recursive --remote
@@ -29,6 +30,7 @@ def call(body) {
             curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${github_token}" -H "X-GitHub-Api-Version: 2022-11-28" \
                 -d '{"title": "Test automatic PR creation ", "head": "${gitB_name}-01", "base": "${baseBranch}", "body": ""}' \
                 https://api.github.com/repos/sri008/test-cron-jobs/pulls
-        """
+            """
+        }
     }
 }
