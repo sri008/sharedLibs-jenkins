@@ -20,6 +20,8 @@ def call(body) {
             else
                 git checkout -b "$gitB_name"
             fi
+            git config --global user.email "srikant_008@live.com"
+            git config --global user.name "sri008" 
             cp ../*.tgz .
 			git status
 			git add . ; git commit -m "fix patch" ; git push
