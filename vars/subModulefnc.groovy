@@ -15,7 +15,7 @@ def call(body) {
             cat .git/config
             cd ${submodulePath.trim()}
             ls -l 
-            git branch | grep -q  "${gitB_name}"
+            git branch | grep -q  "$gitB_name"
             if [ $? -eq 0 ]; then
                 git checkout  "$gitB_name"
             else
