@@ -24,7 +24,7 @@ def call(body) {
             git config --global user.name "sri008" 
             cp ../*.tgz .
 			git status
-			git add . ; git commit -m "fix patch" ; git push
+			git add . ; git commit -m "fix patch" ; git push --set-upstream origin "$gitB_name"; git push
         """
     }
 }
