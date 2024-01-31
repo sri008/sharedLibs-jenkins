@@ -18,6 +18,7 @@ def call(body) {
     //                 // sh 'ls -l'
     //                 script {
                          // Read the .gitmodules file and extract submodule paths
+                         def gitB_name = env.GIT_BRANCH
                         def gitmodulesContent = readFile('.gitmodules')
                         def submodulePaths = gitmodulesContent.readLines().findAll { it =~ /^\s*path\s*=/ }.collect { it.replaceFirst(/^\s*path\s*=\s*/, '') }
 
@@ -32,6 +33,9 @@ def call(body) {
                             cat .git/config
                             cd ${submodulePath.trim()}
                             git branch
+                            git checkout -b ${gitB_name}
+                            cp ../*.tgz .
+                            git status
                             ls -la
                             """
                         }
