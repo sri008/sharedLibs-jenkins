@@ -1,22 +1,25 @@
 def call(body){
     def gitB_name = env.GIT_BRANCH
     def gitmodulesContent = readFile('.gitmodules')
-    // Define a regular expression to match submodule entries
-    def regex = /\[submodule "(.*?)"]\n\s*path = (.*?)\n\s*url = (.*?)\n/
-    // Use a matcher to find all submodule entries
-    def matcher = (gitmodulesContent =~ regex)
+    def lines = gitmodulesContent.readLines()
+    def submoduleRegex = /\[submodule "(.*?)"]/
+    def submodules = []
 
-    sh "git submodule sync ; git submodule update --init --recursive --remote"
-    // Iterate through matches and print path and url values
-    matcher.each { match ->
-        def submodule = [:]
-        submodule['path'] = match[2]
-        submodule['url'] = match[3]
+    lines.eachWithIndex { line, index ->
+        def submoduleMatcher = (line =~ submoduleRegex)
+        if (submoduleMatcher) {
+            def submodule = [:]
+            submodule['path'] = submoduleMatcher[0][1]
+            submodule['url'] = lines[index + 2].trim().split("=")[1].trim()
+            submodules.add(submodule)
+        }
+    }
 
-        println "Path: ${submodule['path']}"
-        println "URL: ${submodule['url']}"
-        println '---'
-        withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
+    submodules.each { submodule ->
+        echo "Path: ${submodule['path']}"
+        echo "URL: ${submodule['url']}"
+        echo '---'
+         withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
             sh """ 
                 cd ${submodule['path']}
                 ls -l 
@@ -35,5 +38,5 @@ def call(body){
                     ${submodule['url']}/pulls
             """
         }
-    }  
+    }
 }
