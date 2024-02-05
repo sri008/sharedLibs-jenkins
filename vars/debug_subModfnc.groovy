@@ -15,6 +15,7 @@ def call(body){
         }
     }
 
+    sh "git submodule sync ; git submodule update --init --recursive --remote"
     submodules.each { submodule ->
         echo "Path: ${submodule['path']}"
         echo "URL: ${submodule['url']}"
