@@ -10,7 +10,17 @@ def call(body){
         if (submoduleMatcher) {
             def submodule = [:]
             submodule['path'] = submoduleMatcher[0][1]
-            submodule['url'] = lines[index + 2].trim().split("=")[1].trim()
+            // when the url in https format then use only below line
+            // submodule['url'] = lines[index + 2].trim().split("=")[1].trim()
+            // Extracting the URL from the line and trimming whitespace
+            def url = lines[index + 2].trim().split("=")[1].trim()
+
+            // Converting SSH URL to HTTPS URL format
+            if (url.startsWith("git@")) {
+                url = "https://" + url.substring(4, url.length() - 4).replace(':', '/')
+            }
+
+            submodule['url'] = url
             submodules.add(submodule)
         }
     }
