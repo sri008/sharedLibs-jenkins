@@ -15,5 +15,5 @@ def call(body){
         println "URL: ${submodule['url']}"
         println '---'
     }
-    println ${submodule}
+    println "${submodule}"
 }
