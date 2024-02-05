@@ -37,11 +37,12 @@ def call(body) {
     submoduleEntries.each { submoduleEntry ->
         def submodulePath = submoduleEntry.replaceAll(/^\s*\[submodule\s*"([^"]+)"\].*/, '$1').trim()
         def submoduleURL = gitmodulesContent.readLines().find { line ->
-        line =~ /path\s*=\s*$submodulePath/}?.next()?.replaceAll(/^\s*url\s*=\s*(.*)$/, '$1').trim()
+            line =~ /path\s*=\s*$submodulePath/
+        }?.replaceAll(/^\s*url\s*=\s*(.*)$/, '$1').trim()
 
         def baseBranch = submoduleEntry.readLines().find { it =~ /branch\s*=/ }?.replaceAll(/^\s*branch\s*=\s*/, '') ?: 'main'
 
-        echo " path = ${submodulePath}"
+        echo "path = ${submodulePath}"
         echo "url = ${submoduleURL}"
         echo "basebranch = ${baseBranch}" 
         // withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
