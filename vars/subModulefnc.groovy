@@ -37,8 +37,9 @@ def call(body) {
     submoduleEntries.each { submoduleEntry ->
         def submodulePath = submoduleEntry.replaceAll(/^\s*\[submodule\s*"([^"]+)"\].*/, '$1').trim()
         def submoduleURL = gitmodulesContent.readLines().find { line ->
-            line =~ /path\s*=\s*$submodulePath/
+            line =~ /path\s*=\s*${submodulePath}/ && line =~ /^\s*url\s*=\s*/
         }?.replaceAll(/^\s*url\s*=\s*(.*)$/, '$1').trim()
+
 
         def baseBranch = submoduleEntry.readLines().find { it =~ /branch\s*=/ }?.replaceAll(/^\s*branch\s*=\s*/, '') ?: 'main'
 
