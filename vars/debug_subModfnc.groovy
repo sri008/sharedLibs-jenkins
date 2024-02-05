@@ -15,9 +15,14 @@ def call(body){
             // Extracting the URL from the line and trimming whitespace
             def url = lines[index + 2].trim().split("=")[1].trim()
 
-            // Converting SSH URL to HTTPS URL format
-            if (url.startsWith("git@")) {
-                url = "https://" + url.substring(4, url.length() - 4).replace(':', '/')
+            // Converting SSH URL to GitHub API URL for creating pull requests
+            if (!url.startsWith("https://api.github.com/repos")) {
+                def parts = url.split(':')
+                def repoParts = parts[1].split('/')
+                def owner = repoParts[0]
+                def repo = repoParts[1].substring(0, repoParts[1].lastIndexOf('.git'))
+
+                url = "https://api.github.com/repos/${owner}/${repo}/pulls"
             }
 
             submodule['url'] = url
