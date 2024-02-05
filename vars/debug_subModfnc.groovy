@@ -4,7 +4,7 @@ def call(body){
     // Define a regular expression to match submodule entries
     def regex = /\[submodule "(.*?)"]\n\s*path = (.*?)\n\s*url = (.*?)\n/
     // Use a matcher to find all submodule entries
-    def matcher = (fileContents =~ regex)
+    def matcher = (gitmodulesContent =~ regex)
     // Iterate through matches and print path and url values
     matcher.each { match ->
         def submodule = [:]
