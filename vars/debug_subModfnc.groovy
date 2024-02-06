@@ -26,6 +26,11 @@ def call(body){
             }
 
             submodule['url'] = url
+
+             // Extracting the branch from the line
+            def branchLine = lines.find { it.startsWith("branch =") }
+            def branch = branchLine ? branchLine.split("=")[1].trim() : 'main'
+            submodule['branch'] = branch
             submodules.add(submodule)
         }
     }
@@ -50,7 +55,7 @@ def call(body){
                 git status
                 git add . ; git commit -m "fix patch" ; git push --set-upstream origin "$gitB_name"; git push
                 curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${github_token}" -H "X-GitHub-Api-Version: 2022-11-28" \
-                    -d '{"title": "Test automatic PR creation ", "head": "${gitB_name}", "base": "main", "body": ""}' \
+                    -d '{"title": "Test automatic PR creation ", "head": "${gitB_name}", "base": "${submodule['url']}", "body": ""}' \
                     ${submodule['url']}
             """
         }
