@@ -15,6 +15,10 @@ def call(body){
             // Extracting the URL from the line and trimming whitespace
             def url = lines[index + 2].trim().split("=")[1].trim()
 
+            // Find the corresponding branch line for the current submodule
+            def branchLine = lines.find { it.startsWith("branch =") && it.contains(submodule['path']) }
+            def branch = branchLine ? branchLine.split("=")[1].trim() : 'main'
+
             // Converting SSH URL to GitHub API URL for creating pull requests
             if (!url.startsWith("https://api.github.com/repos")) {
                 def parts = url.split(':')
@@ -26,11 +30,6 @@ def call(body){
             }
 
             submodule['url'] = url
-
-             // Extracting the branch from the line
-            // Find the branch line for the current submodule
-            def branchLine = lines.find { it.startsWith("branch =") && it.contains(submodule['path']) }
-            def branch = branchLine ? branchLine.split("=")[1].trim() : 'main'
             submodule['branch'] = branch
 
             submodules.add(submodule)
@@ -43,24 +42,24 @@ def call(body){
         echo "URL: ${submodule['url']}"
         echo "Bbranch: ${submodule['branch']}"
         echo '---'
-         withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
-            sh """ 
-                cd ${submodule['path']}
-                ls -l 
-                if [[ \$(git branch | grep -q "${gitB_name}") ]]; then
-                    git checkout "$gitB_name"
-                else
-                    git checkout -b "$gitB_name"
-                fi
-                git config --global user.email "srikant_008@live.com"
-                git config --global user.name "sri008" 
-                cp ../*.tgz .
-                git status
-                git add . ; git commit -m "fix patch" ; git push --set-upstream origin "$gitB_name"; git push
-                curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${github_token}" -H "X-GitHub-Api-Version: 2022-11-28" \
-                    -d '{"title": "Test automatic PR creation ", "head": "${gitB_name}", "base": "${submodule['branch']}", "body": ""}' \
-                    ${submodule['url']}
-            """
+        //  withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
+        //     sh """ 
+        //         cd ${submodule['path']}
+        //         ls -l 
+        //         if [[ \$(git branch | grep -q "${gitB_name}") ]]; then
+        //             git checkout "$gitB_name"
+        //         else
+        //             git checkout -b "$gitB_name"
+        //         fi
+        //         git config --global user.email "srikant_008@live.com"
+        //         git config --global user.name "sri008" 
+        //         cp ../*.tgz .
+        //         git status
+        //         git add . ; git commit -m "fix patch" ; git push --set-upstream origin "$gitB_name"; git push
+        //         curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${github_token}" -H "X-GitHub-Api-Version: 2022-11-28" \
+        //             -d '{"title": "Test automatic PR creation ", "head": "${gitB_name}", "base": "${submodule['branch']}", "body": ""}' \
+        //             ${submodule['url']}
+        //     """
         }
     }
 }
