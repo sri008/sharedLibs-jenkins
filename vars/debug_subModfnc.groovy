@@ -60,6 +60,6 @@ def call(body){
         //             -d '{"title": "Test automatic PR creation ", "head": "${gitB_name}", "base": "${submodule['branch']}", "body": ""}' \
         //             ${submodule['url']}
         //     """
-        }
+        // }
     }
 }
