@@ -28,9 +28,11 @@ def call(body){
             submodule['url'] = url
 
              // Extracting the branch from the line
-            def branchLine = lines.find { it.startsWith("branch =") }
-            def branch = branchLine ? branchLine.split("=")[1].trim() : 'main'
+            // Find the branch line for the current submodule
+            def branchLineIndex = lines.findIndex { it.startsWith("branch =") && it.contains(submodule['path']) }
+            def branch = branchLineIndex != -1 ? lines[branchLineIndex].split("=")[1].trim() : 'main'
             submodule['branch'] = branch
+
             submodules.add(submodule)
         }
     }
@@ -38,7 +40,8 @@ def call(body){
     sh "git submodule sync ; git submodule update --init --recursive --remote"
     submodules.each { submodule ->
         echo "Path: ${submodule['path']}"
-        echo "URL: ${submodule['url']}"
+        echo "URL: ${submodule['url'branch]}"
+        echo "Bbranch: ${submodule['']}"
         echo '---'
          withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
             sh """ 
