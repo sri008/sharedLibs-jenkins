@@ -40,8 +40,8 @@ def call(body){
     sh "git submodule sync ; git submodule update --init --recursive --remote"
     submodules.each { submodule ->
         echo "Path: ${submodule['path']}"
-        echo "URL: ${submodule['url'branch]}"
-        echo "Bbranch: ${submodule['']}"
+        echo "URL: ${submodule['url']}"
+        echo "Bbranch: ${submodule['branch']}"
         echo '---'
          withCredentials([string(credentialsId: 'testAPi', variable: 'github_token')]) {
             sh """ 
