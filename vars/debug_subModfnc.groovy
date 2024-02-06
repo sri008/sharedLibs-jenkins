@@ -29,8 +29,8 @@ def call(body){
 
              // Extracting the branch from the line
             // Find the branch line for the current submodule
-            def branchLineIndex = lines.findIndex { it.startsWith("branch =") && it.contains(submodule['path']) }
-            def branch = branchLineIndex != -1 ? lines[branchLineIndex].split("=")[1].trim() : 'main'
+            def branchLine = lines.find { it.startsWith("branch =") && it.contains(submodule['path']) }
+            def branch = branchLine ? branchLine.split("=")[1].trim() : 'main'
             submodule['branch'] = branch
 
             submodules.add(submodule)
